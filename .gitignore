@@ -6,14 +6,17 @@ scripts/github-profiles.ps1
 
 # Laravel / PHP
 /node_modules
+/public/build
 /public/hot
 /public/storage
 /storage/*.key
+/storage/pail
 /vendor
 .env
 .env.backup
 .env.production
 .phpunit.result.cache
+/.phpunit.cache
 Homestead.json
 Homestead.yaml
 auth.json
@@ -22,3 +25,5 @@ yarn-error.log
 /.fleet
 /.idea
 /.vscode
+Thumbs.db
+*.log
