@@ -1,10 +1,16 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\EvenementController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/creer', [EvenementController::class, 'creer']);
+    Route::post('/docreer', [EvenementController::class, 'doCreer']);
 });
 
 Route::get('/connexion', [AuthController::class, 'showLoginForm'])->name('login');
