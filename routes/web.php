@@ -9,6 +9,8 @@ Route::get('/', function () {
 });
 
 Route::get('/evenement/{id}', [EvenementController::class, 'consulter']);
+Route::post('/evenement/{id}/sinscrire', [EvenementController::class, 'sInscrire']);
+Route::post('/evenement/{id}/sedesinscrire', [EvenementController::class, 'seDesinscrire']);
 
 Route::get('/connexion', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('/inscription', [AuthController::class, 'showRegisterForm'])->name('register');
