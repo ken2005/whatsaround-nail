@@ -1,11 +1,10 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::get('/connexion', [AuthController::class, 'showLoginForm'])->name('login');
 Route::get('/inscription', [AuthController::class, 'showRegisterForm'])->name('register');
