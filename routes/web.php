@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\EvenementController;
+use App\Http\Controllers\UtilisateurController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [HomeController::class, 'index']);
@@ -30,3 +31,4 @@ Route::middleware('auth')->group(function () {
     Route::delete('/evenement/{id}', [EvenementController::class, 'supprimer']);
     Route::get('/evenement/{id}/participants', [EvenementController::class, 'participants']);
 });
+Route::get('/profil/{id}', [UtilisateurController::class, 'profil']);
