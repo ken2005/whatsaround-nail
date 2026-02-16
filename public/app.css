@@ -76,6 +76,15 @@ input[type="text"], input[type="email"], input[type="password"], textarea { widt
 #creer-evenement .back-button { background-color: #2c3e50; color: white; border: none; }
 #creer-evenement .back-button:hover { background-color: #34495e; }
 #creer-evenement .text-danger { color: #dc3545; font-size: 0.875rem; margin-top: 0.25rem; }
+#profil .profile-details { max-width: 800px; margin: 2rem auto; padding: 2rem; background-color: white; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1); }
+#profil .profile-info { margin-bottom: 2rem; }
+#profil .profile-info h2 { color: #2c3e50; margin-bottom: 1rem; font-size: 2rem; }
+#profil .profile-info p { color: #666; margin-bottom: 1rem; font-size: 1.1rem; line-height: 1.6; }
+#profil .profile-actions { display: flex; gap: 1rem; margin-top: 2rem; flex-wrap: wrap; }
+#profil .back-button { background-color: #95a5a6; }
+#profil .back-button:hover { background-color: #7f8c8d; }
+#profil .profile-picture { width: 150px; height: 150px; border-radius: 50%; object-fit: cover; margin-bottom: 1rem; border: 3px solid #3498db; }
+#profil form { display: inline; }
 #participants .participants-list { max-width: 800px; margin: 0 auto; padding: 20px; }
 #participants .participant-card { background: white; border-radius: 10px; padding: 15px; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); transition: transform 0.2s ease; }
 #participants .participant-card:hover { transform: translateY(-2px); box-shadow: 0 4px 8px rgba(0,0,0,0.15); }
