@@ -4,8 +4,8 @@ Application Laravel : création d'événements, inscriptions, Mes événements.
 
 ## Démarrage
 
-- Cloner le dépôt, puis `composer install`, copier `.env.example` en `.env`, `php artisan key:generate`, configurer la BDD, `php artisan migrate`.
-- Avec Docker : `docker-compose up --build`.
+- **Local :** cloner le dépôt, `composer install`, copier `.env.example` en `.env`, `php artisan key:generate`, configurer la BDD dans `.env`, `php artisan migrate`, `php artisan serve`.
+- **Docker :** `docker-compose up --build`. L’app est sur http://localhost:8000, MySQL sur le port 3306 (voir `docs/document-technique.md`).
 
 ## Documentation
 
