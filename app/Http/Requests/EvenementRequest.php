@@ -22,4 +22,14 @@ class EvenementRequest extends FormRequest
             'max_participants' => ['nullable', 'integer', 'min:1'],
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'nom.required' => 'Le nom de l’événement est obligatoire.',
+            'date.required' => 'La date est obligatoire.',
+            'heure.required' => 'L’heure est obligatoire.',
+            'lieu.required' => 'Le lieu est obligatoire.',
+        ];
+    }
 }
