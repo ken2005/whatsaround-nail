@@ -10,6 +10,10 @@
         nav a { margin-right: 1rem; }
         .events-list { list-style: none; padding: 0; }
         .events-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
+        @media (max-width: 640px) {
+            .events-list li { padding: 0.75rem 0; }
+            nav a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; }
+        }
     </style>
 </head>
 <body>
