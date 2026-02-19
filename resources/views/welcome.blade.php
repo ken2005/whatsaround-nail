@@ -12,6 +12,8 @@
                 — {{ $e->date->format('d/m/Y') }} {{ $e->heure }} — {{ $e->lieu }}
                 @if($e->max_participants)
                     ({{ $e->inscriptions_count }} / {{ $e->max_participants }} places)
+                @else
+                    ({{ $e->inscriptions_count }} participants)
                 @endif
             </li>
         @endforeach
