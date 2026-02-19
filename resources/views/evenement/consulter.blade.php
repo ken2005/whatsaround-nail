@@ -10,6 +10,8 @@
 <p>{{ $evenement->description }}</p>
 @if($evenement->max_participants !== null)
     <p>Places : {{ $evenement->inscriptions_count }} / {{ $evenement->max_participants }}</p>
+@else
+    <p>{{ $evenement->inscriptions_count }} participants (places illimitées)</p>
 @endif
 @auth
     @if($inscrit)
