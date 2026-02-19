@@ -30,3 +30,8 @@ docker-compose up --build
 ## Déploiement
 
 Le Dockerfile expose le serveur Artisan sur le port 8000. En production, prévoir un reverse proxy (nginx) ou utiliser `php artisan serve` derrière un proxy.
+
+## Pipeline et conteneurisation
+
+- **CI :** GitHub Actions (voir `.github/workflows/ci.yml`) — tests et lint sur chaque push.
+- **Conteneurisation :** `docker-compose` lance l’app PHP et MySQL ; le Dockerfile multi-stage peut être étendu pour la production.
