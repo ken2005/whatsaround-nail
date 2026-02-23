@@ -3,11 +3,24 @@
 @section('title', 'Participants — ' . $evenement->nom)
 
 @section('content')
-<h1>Participants — {{ $evenement->nom }}</h1>
-<ul>
-    @foreach($participants as $p)
-        <li>{{ $p->name }} ({{ $p->email }})</li>
-    @endforeach
-</ul>
-<p><a href="{{ url("/evenement/{$evenement->id}") }}">Retour</a></p>
+<div id="participants">
+    <div class="participants-list">
+        <h1>Participants — {{ $evenement->nom }}</h1>
+        @if($participants->isEmpty())
+            <p class="no-participants">Aucun participant.</p>
+        @else
+            @foreach($participants as $p)
+                <div class="participant-card">
+                    <div class="participant-info">
+                        <div class="participant-details">
+                            <h3>{{ $p->name }}</h3>
+                            <p class="inscription-date">{{ $p->email }}</p>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+        @endif
+        <a href="{{ url("/evenement/{$evenement->id}") }}" class="return-button">Retour</a>
+    </div>
+</div>
 @endsection
