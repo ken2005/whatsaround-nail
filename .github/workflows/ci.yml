@@ -7,7 +7,8 @@ on:
     branches: [main, develop]
 
 jobs:
-  test:
+  tdd:
+    name: TDD – Tests & qualité
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,5 +18,9 @@ jobs:
           php-version: '8.2'
       - name: Install dependencies
         run: composer install --no-progress
-      - name: Run tests
+      - name: Prepare env (testing)
+        run: |
+          cp .env.example .env 2>/dev/null || true
+          php artisan key:generate --no-interaction
+      - name: Run test suite (TDD)
         run: php artisan test
