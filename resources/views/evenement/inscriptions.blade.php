@@ -3,15 +3,21 @@
 @section('title', 'Mes inscriptions')
 
 @section('content')
-<h1>Mes inscriptions</h1>
+<h1 style="text-align: center;" class="mb-4">Mes inscriptions</h1>
 @if($evenements->isEmpty())
-    <p>Aucune inscription.</p>
+    <p class="text-center no-following mb-4">Vous n'êtes inscrit à aucun événement.</p>
 @else
-    <ul>
-        @foreach($evenements as $e)
-            <li><a href="{{ url('/evenement/'.$e->id) }}">{{ $e->nom }}</a> — {{ $e->date->format('d/m/Y') }} — {{ $e->lieu }}</li>
+    <div class="events-container">
+        @foreach($evenements as $evenement)
+            <a class="lien-discret" href="{{ url('/evenement/'.$evenement->id) }}">
+                <div class="event-card">
+                    <h3>{{ $evenement->nom }} @if($evenement->diffusion_id == 2)<i class="fa-solid fa-lock" title="Privé"></i>@elseif($evenement->diffusion_id == 3)<i class="fa-solid fa-street-view" title="Communautaire"></i>@endif</h3>
+                    <p>📍 {{ $evenement->lieu }}</p>
+                    <p>📅 {{ $evenement->date->format('d/m/Y') }}</p>
+                    <p>🕒 {{ $evenement->heure }}</p>
+                </div>
+            </a>
         @endforeach
-    </ul>
+    </div>
 @endif
-<p><a href="{{ url('/') }}">Accueil</a></p>
 @endsection

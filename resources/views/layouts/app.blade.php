@@ -1,37 +1,106 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="fr">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@yield('title', config('app.name'))</title>
-    <style>
-        body { font-family: sans-serif; margin: 0; padding: 1rem; }
-        nav { margin-bottom: 1.5rem; }
-        nav a { margin-right: 1rem; }
-        .events-list { list-style: none; padding: 0; }
-        .events-list li { padding: 0.5rem 0; border-bottom: 1px solid #eee; }
-        @media (max-width: 640px) {
-            .events-list li { padding: 0.75rem 0; }
-            nav a { display: inline-block; margin: 0.25rem 0.5rem 0.25rem 0; }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>@yield('title', 'What\'s Around')</title>
+  <link rel="stylesheet" href="{{ asset('app.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <nav>
-        <a href="{{ url('/') }}">Accueil</a>
-        <a href="{{ url('/creer') }}">Créer un événement</a>
-        @auth
-            <a href="{{ url('/evenements/inscriptions') }}">Mes inscriptions</a>
-            <a href="{{ url('/evenements/crees') }}">Mes événements</a>
-            <a href="{{ url('/profil/'.auth()->id()) }}">Profil</a>
-            <form action="{{ url('/logout') }}" method="POST" style="display:inline">@csrf<button type="submit">Déconnexion</button></form>
-        @else
-            <a href="{{ route('login') }}">Connexion</a>
-            <a href="{{ route('register') }}">Inscription</a>
-        @endauth
-    </nav>
-    <main>
-        @yield('content')
-    </main>
+  <header>
+    <div class="header-content">
+      <a class="lien-discret" href="{{ route('accueil') }}"><h1>What's Around</h1></a>
+      @guest
+      <a class="lien-discret" href="{{ route('connexion') }}"><button>Se connecter</button></a>
+      <a class="lien-discret" href="{{ route('inscription') }}"><button>Inscription</button></a>
+      @endguest
+      @auth
+      <div class="user-info">
+        <span style="display: flex; align-items: center;">
+          <span class="pc-menu">
+            <a href="{{ route('abonnements') }}" class="lien-discret"><i class="fa-solid fa-star {{ request()->routeIs('abonnements') ? 'active-icon' : '' }}"></i></a>
+            <a href="{{ route('evenements.inscriptions') }}" class="lien-discret"><i class="fa-solid fa-calendar-day {{ request()->routeIs('evenements.inscriptions') ? 'active-icon' : '' }}"></i></a>
+            <a href="{{ route('evenements.enregistres') }}" class="lien-discret"><i class="fa-solid fa-bookmark {{ request()->routeIs('evenements.enregistres') ? 'active-icon' : '' }}"></i></a>
+            <a href="{{ route('evenements.crees') }}" class="lien-discret"><i class="fa-solid fa-calendar-plus {{ request()->routeIs('evenements.crees') ? 'active-icon' : '' }}"></i></a>
+            <a id="tkt" href="{{ route('profil', auth()->id()) }}" class="lien-discret"><i class="fas fa-user {{ request()->routeIs('profil') ? 'active-icon' : '' }}"></i></a>
+          </span>
+          <span class="phone-menu">
+            <i class="fas fa-user profil"></i>
+          </span>
+        </span>
+        <div class="user-menu">
+          <a href="{{ route('profil', auth()->id()) }}"><i class="fas fa-user-circle"></i> Profil</a>
+          <span class="phone-menu">
+            <a href="{{ route('evenements.enregistres') }}"><i class="fa-solid fa-bookmark"></i> Evenements enregistrés</a>
+            <a href="{{ route('evenements.inscriptions') }}"><i class="fa-solid fa-calendar-day"></i> Mes Inscriptions</a>
+            <a href="{{ route('evenements.crees') }}"><i class="fa-solid fa-calendar-plus"></i> Mes Evenements</a>
+            <a href="{{ route('abonnements') }}"><i class="fa-solid fa-star"></i> Mes Abonnements</a>
+          </span>
+          @if (auth()->user()->est_prive)
+            <a href="{{ route('demandes') }}"><i class="fa-solid fa-user-plus"></i> Mes demandes d'abonnement</a>
+          @endif
+          <form action="{{ route('logout') }}" method="POST" style="display:block; margin:0;">
+            @csrf
+            <button type="submit" style="width:100%; text-align:left; background:none; border:none; padding:12px 20px; cursor:pointer; color:#2c3e50; font-size:1rem;"><i class="fas fa-sign-out-alt"></i> Se déconnecter</button>
+          </form>
+        </div>
+      </div>
+      @endauth
+    </div>
+  </header>
+  <div class="content">
+    <div class="pull-to-refresh">
+      <span>Chargement...</span>
+    </div>
+    @if(session('message'))<p class="alert-success">{{ session('message') }}</p>@endif
+    @if(session('error'))<p class="alert-error">{{ session('error') }}</p>@endif
+    @yield('content')
+  </div>
+  <script>
+    (function() {
+      var tkt = document.getElementById('tkt');
+      var userMenu = document.querySelector('.user-menu');
+      if (tkt && userMenu) {
+        tkt.addEventListener('mouseover', function() { userMenu.style.display = 'block'; });
+        tkt.addEventListener('focus', function() { userMenu.style.display = 'block'; });
+        userMenu.addEventListener('mouseleave', function() { userMenu.style.display = 'none'; });
+      }
+      var header = document.querySelector('header');
+      if (header) {
+        var lastScrollY = window.scrollY;
+        window.addEventListener('scroll', function() {
+          var currentScrollY = window.scrollY;
+          if (currentScrollY > lastScrollY) header.classList.add('hidden');
+          else header.classList.remove('hidden');
+          lastScrollY = currentScrollY;
+        });
+      }
+    })();
+  </script>
+  <script>
+    (function() {
+      var pullToRefresh = document.querySelector('.pull-to-refresh');
+      if (!pullToRefresh) return;
+      var touchstartY = 0;
+      document.addEventListener('touchstart', function(e) {
+        touchstartY = e.touches[0].clientY;
+      });
+      document.addEventListener('touchmove', function(e) {
+        var touchY = e.touches[0].clientY;
+        if (touchY - touchstartY > 0 && window.scrollY === 0) {
+          pullToRefresh.classList.add('visible');
+          e.preventDefault();
+        }
+      });
+      document.addEventListener('touchend', function() {
+        if (pullToRefresh.classList.contains('visible')) {
+          pullToRefresh.classList.remove('visible');
+          location.reload();
+        }
+      });
+    })();
+  </script>
+  @stack('scripts')
 </body>
 </html>
