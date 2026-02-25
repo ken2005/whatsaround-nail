@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+node_modules
+vendor
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+.phpunit.result.cache
+.phpunit.cache
+kit-nouveau-repo
+scripts/github-profiles.ps1
+*.log
+.idea
+.vscode
+.fleet

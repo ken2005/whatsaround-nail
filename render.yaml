@@ -1,0 +1,20 @@
+# Blueprint Render — déploiement continu depuis la branche develop
+# 1. Dashboard Render → New → Blueprint → connecter le repo
+# 2. Définir APP_KEY (php artisan key:generate --show) dans les variables d'environnement
+# 3. Optionnel : créer une base Postgres et définir DATABASE_URL + DB_CONNECTION=pgsql
+
+services:
+  - type: web
+    runtime: docker
+    name: whatsaround-nail
+    branch: develop
+    autoDeployTrigger: commit
+    preDeployCommand: php artisan migrate --force
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: false
+      - key: APP_KEY
+        sync: false
+      # Optionnel si Postgres : DATABASE_URL (fromDatabase) et DB_CONNECTION=pgsql
