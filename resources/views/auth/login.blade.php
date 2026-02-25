@@ -1,32 +1,50 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html lang="fr" id="auth-page">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What's Around - Connexion</title>
+    <link rel="stylesheet" href="{{ asset('app.css') }}">
+</head>
+<body>
+    <header>
+        <h1>What's Around</h1>
+    </header>
 
-@section('title', 'Connexion — ' . config('app.name'))
+    <div class="login-container">
+        <form method="POST" action="{{ route('login') }}">
+            @csrf
+            <div class="form-group">
+                <label for="email">Adresse e-mail</label>
+                <input type="email" id="email" name="email" required autofocus value="{{ old('email') }}">
+                @error('email')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
 
-@section('content')
-<div class="form-container">
-    <h1 class="page-title">Connexion</h1>
-    @if ($errors->any())
-        <ul class="alert-error">
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-    <form method="POST" action="{{ url('/login') }}">
-        @csrf
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" value="{{ old('email') }}" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Mot de passe</label>
-            <input type="password" name="password" id="password" required>
-        </div>
-        <div class="form-group">
-            <label><input type="checkbox" name="remember"> Se souvenir de moi</label>
-        </div>
-        <button type="submit">Se connecter</button>
-    </form>
-    <p style="margin-top:1rem"><a href="{{ route('register') }}">Créer un compte</a></p>
-</div>
-@endsection
+            <div class="form-group">
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
+                @error('password')
+                    <div class="error-message">{{ $message }}</div>
+                @enderror
+            </div>
+
+            <input type="checkbox" name="remember" id="remember">
+            <label for="remember">Se souvenir de moi</label><br><br>
+
+            <div class="form-group">
+                <button type="submit">Se connecter</button>
+            </div>
+
+            <div class="forgot-password">
+                <a href="">Mot de passe oublié ?</a>
+            </div>
+
+            <div class="register-link">
+                Pas encore de compte ? <a href="{{ route('inscription') }}">S'inscrire</a>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
