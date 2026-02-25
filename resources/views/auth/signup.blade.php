@@ -1,14 +1,12 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inscription — {{ config('app.name') }}</title>
-</head>
-<body>
-    <h1>Inscription</h1>
+@extends('layouts.app')
+
+@section('title', 'Inscription — ' . config('app.name'))
+
+@section('content')
+<div class="form-container">
+    <h1 class="page-title">Inscription</h1>
     @if ($errors->any())
-        <ul>
+        <ul class="alert-error">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
             @endforeach
@@ -16,24 +14,24 @@
     @endif
     <form method="POST" action="{{ url('/register') }}">
         @csrf
-        <div>
+        <div class="form-group">
             <label for="name">Nom</label>
             <input type="text" name="name" id="name" value="{{ old('name') }}" required>
         </div>
-        <div>
+        <div class="form-group">
             <label for="email">Email</label>
             <input type="email" name="email" id="email" value="{{ old('email') }}" required>
         </div>
-        <div>
+        <div class="form-group">
             <label for="password">Mot de passe</label>
             <input type="password" name="password" id="password" required>
         </div>
-        <div>
+        <div class="form-group">
             <label for="password_confirmation">Confirmer le mot de passe</label>
             <input type="password" name="password_confirmation" id="password_confirmation" required>
         </div>
         <button type="submit">S'inscrire</button>
     </form>
-    <p><a href="{{ route('login') }}">Déjà un compte ? Se connecter</a></p>
-</body>
-</html>
+    <p style="margin-top:1rem"><a href="{{ route('connexion') }}">Déjà un compte ? Se connecter</a></p>
+</div>
+@endsection

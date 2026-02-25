@@ -12,7 +12,7 @@ class RedirectToLogin
     public function handle(Request $request, Closure $next): Response
     {
         if (! Auth::check()) {
-            return redirect()->guest(route('login'));
+            return redirect()->guest(route('connexion'));
         }
 
         return $next($request);
