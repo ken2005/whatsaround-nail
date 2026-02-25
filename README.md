@@ -9,9 +9,9 @@ Application Laravel : création d'événements, inscriptions, Mes événements.
 - **Local :** cloner le dépôt, `composer install`, copier `.env.example` en `.env`, `php artisan key:generate`, configurer la BDD dans `.env`, `php artisan migrate`, `php artisan serve`.
 - **Docker :** `docker-compose up --build`. L’app est sur http://localhost:8000, MySQL sur le port 3306 (voir `docs/document-technique.md`).
 
-## CI
+## CI & TDD
 
-Le pipeline GitHub Actions exécute les tests sur chaque push vers `main` et `develop`. Remplacer `USER/REPO` dans l’URL du badge par votre organisation et dépôt.
+Le pipeline GitHub Actions (job **TDD – Tests & qualité**) exécute la suite de tests sur chaque push vers `main` et `develop`. Les tests (unitaires et feature) suivent une approche TDD : couverture accueil, recherche, auth, événements (consulter, inscription, enregistrements, inviter), profil et suivre. Remplacer `USER/REPO` dans l’URL du badge par votre organisation et dépôt.
 
 ## Documentation
 
