@@ -21,12 +21,17 @@ class CategorieSeeder extends Seeder
             'Associatif',
             'Autre',
         ];
+
         foreach ($categories as $libelle) {
-            DB::table('categorie')->insert([
-                'libelle' => $libelle,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+            $exists = DB::table('categorie')->where('libelle', $libelle)->exists();
+
+            if (! $exists) {
+                DB::table('categorie')->insert([
+                    'libelle' => $libelle,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
         }
     }
 }
