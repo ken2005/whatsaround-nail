@@ -8,8 +8,8 @@ services:
       - DB_CONNECTION=mysql
       - DB_HOST=mysql
       - DB_DATABASE=whatsaround
-      - DB_USERNAME=whatsaround
-      - DB_PASSWORD=secret
+      - DB_USERNAME=${DB_USERNAME}
+      - DB_PASSWORD=${DB_PASSWORD}
     depends_on:
       - mysql
     volumes:
@@ -19,9 +19,9 @@ services:
     image: mysql:8.0
     environment:
       MYSQL_DATABASE: whatsaround
-      MYSQL_USER: whatsaround
-      MYSQL_PASSWORD: secret
-      MYSQL_ROOT_PASSWORD: rootsecret
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     ports:
       - "3306:3306"
     volumes:
