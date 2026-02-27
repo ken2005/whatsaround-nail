@@ -13,7 +13,6 @@
       <a class="lien-discret" href="{{ route('accueil') }}"><h1>What's Around</h1></a>
       @guest
       <a class="lien-discret" href="{{ route('connexion') }}"><button>Se connecter</button></a>
-      <a class="lien-discret" href="{{ route('inscription') }}"><button>Inscription</button></a>
       @endguest
       @auth
       <div class="user-info">
