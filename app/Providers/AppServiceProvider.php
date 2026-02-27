@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Routing\UrlGenerator;
-use Illuminate\Support\Facades\Config;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -21,7 +20,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url): void
     {
-        // Forcer systématiquement le HTTPS pour éviter le mixed content (Render, etc.)
-        $url->forceScheme('https');
+        // HTTPS uniquement en production (Render) pour éviter le mixed content,
+        // mais laisser HTTP en local pour que le CSS fonctionne.
+        if (app()->environment('production')) {
+            $url->forceScheme('https');
+        }
     }
 }
