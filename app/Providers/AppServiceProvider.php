@@ -21,9 +21,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(UrlGenerator $url): void
     {
-        if (env('APP_ENV') === 'production') {
-            Config::set('session.driver', 'file');
-            $url->forceScheme('https');
-        }
+        // Forcer systématiquement le HTTPS pour éviter le mixed content (Render, etc.)
+        $url->forceScheme('https');
     }
 }
