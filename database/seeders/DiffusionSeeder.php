@@ -9,10 +9,22 @@ class DiffusionSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('diffusion')->insert([
-            ['libelle' => 'Public', 'created_at' => now(), 'updated_at' => now()],
-            ['libelle' => 'Invités uniquement', 'created_at' => now(), 'updated_at' => now()],
-            ['libelle' => 'Abonnés uniquement', 'created_at' => now(), 'updated_at' => now()],
-        ]);
+        $rows = [
+            'Public',
+            'Invités uniquement',
+            'Abonnés uniquement',
+        ];
+
+        foreach ($rows as $libelle) {
+            $exists = DB::table('diffusion')->where('libelle', $libelle)->exists();
+
+            if (! $exists) {
+                DB::table('diffusion')->insert([
+                    'libelle' => $libelle,
+                    'created_at' => now(),
+                    'updated_at' => now(),
+                ]);
+            }
+        }
     }
 }
