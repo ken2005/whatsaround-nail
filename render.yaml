@@ -9,7 +9,7 @@ services:
     name: whatsaround-nail
     branch: develop
     autoDeployTrigger: commit
-    preDeployCommand: php artisan migrate --force
+    preDeployCommand: mkdir -p database && touch database/database.sqlite && php artisan migrate --force
     envVars:
       - key: APP_ENV
         value: production
